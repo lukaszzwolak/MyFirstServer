@@ -10,6 +10,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static(path.join(__dirname, "/public")));
+
 app.get("/", (req, res) => {
   res.show("index.html");
 });
@@ -30,7 +32,6 @@ app.get("/history", (req, res) => {
   res.show("history.html");
 });
 
-// Middleware 404
 app.use((req, res) => {
   res.status(404).send("404 not found...");
 });
