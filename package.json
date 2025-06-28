@@ -1,5 +1,16 @@
 {
   "dependencies": {
-    "express": "4.17.1"
+    "express": "^5.1.0",
+    "express-handlebars": "3.1.0",
+    "hbs": "^4.2.0"
+  },
+  "name": "MyFirstServer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/lukaszzwolak/MyFirstServer.git",
+  "author": "lukaszzwolak <lukasz.zwolak1607@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
   }
 }
