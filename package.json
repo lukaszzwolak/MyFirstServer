@@ -2,7 +2,8 @@
   "dependencies": {
     "express": "^5.1.0",
     "express-handlebars": "3.1.0",
-    "hbs": "^4.2.0"
+    "hbs": "^4.2.0",
+    "multer": "^2.0.1"
   },
   "name": "MyFirstServer",
   "version": "1.0.0",

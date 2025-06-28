@@ -1,8 +1,13 @@
 const express = require("express");
 const path = require("path");
 const hbs = require("express-handlebars");
+const multer = require("multer");
 
 const app = express();
+
+// Middleware do prasowania danych z formularzy
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Konfiguracja silnika HBS
 app.engine(
@@ -25,32 +30,35 @@ app.use("/user", (req, res) => {
 });
 
 // Endpointy
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.get("/", (req, res) => res.render("index"));
+app.get("/home", (req, res) => res.render("index"));
+app.get("/hello/:name", (req, res) =>
+  res.render("hello", { name: req.params.name })
+);
+app.get("/about", (req, res) => res.render("about"));
+app.get("/contact", (req, res) => res.render("contact"));
+app.get("/info", (req, res) => res.render("info"));
+app.get("/history", (req, res) => res.render("history"));
 
-app.get("/home", (req, res) => {
-  res.render("index");
-});
+// POST z walidacją + plik
+app.post("/contact/send-message", upload.single("design"), (req, res) => {
+  const { author, sender, title, message } = req.body;
+  const file = req.file;
 
-app.get("/hello/:name", (req, res) => {
-  res.render("hello", { name: req.params.name });
-});
+  const allowedTypes = ["image/png", "image/jpg", "image/jpeg", "image/gif"];
 
-app.get("/about", (req, res) => {
-  res.render("about");
-});
-
-app.get("/contact", (req, res) => {
-  res.render("contact");
-});
-
-app.get("/info", (req, res) => {
-  res.render("info");
-});
-
-app.get("/history", (req, res) => {
-  res.render("history");
+  if (
+    author &&
+    sender &&
+    title &&
+    message &&
+    file &&
+    allowedTypes.includes(file.mimetype)
+  ) {
+    res.render("contact", { isSent: true, fileName: file.originalname });
+  } else {
+    res.render("contact", { isError: true });
+  }
 });
 
 // Obsługa 404
