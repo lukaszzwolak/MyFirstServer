@@ -2,8 +2,14 @@
 
 {{#if isSent}}
   <div class="isSent">
-    The message has been sent!
-    {{#if fileName}}<br />File {{fileName}} has been saved.{{/if}}
+    <p>The message has been sent!</p>
+    {{#if imageUrl}}
+      <img
+        src="{{imageUrl}}"
+        alt="Uploaded Image"
+        style="max-width: 300px; margin: 10px auto;"
+      />
+    {{/if}}
   </div>
 {{/if}}
 

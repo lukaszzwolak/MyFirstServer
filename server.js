@@ -3,6 +3,18 @@ const path = require("path");
 const hbs = require("express-handlebars");
 const multer = require("multer");
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "/public/uploads"));
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}${path.extname(file.originalname)}`;
+    cb(null, uniqueName);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 const app = express();
 
 // Middleware do prasowania danych z formularzy
@@ -45,17 +57,19 @@ app.post("/contact/send-message", upload.single("design"), (req, res) => {
   const { author, sender, title, message } = req.body;
   const file = req.file;
 
-  const allowedTypes = ["image/png", "image/jpg", "image/jpeg", "image/gif"];
-
-  if (
+  const isValid =
     author &&
     sender &&
     title &&
     message &&
     file &&
-    allowedTypes.includes(file.mimetype)
-  ) {
-    res.render("contact", { isSent: true, fileName: file.originalname });
+    [".png", ".jpg", ".jpeg", ".gif"].includes(
+      path.extname(file.originalname).toLowerCase()
+    );
+
+  if (isValid) {
+    const imageUrl = `/uploads/${file.filename}`;
+    res.render("contact", { isSent: true, imageUrl });
   } else {
     res.render("contact", { isError: true });
   }
