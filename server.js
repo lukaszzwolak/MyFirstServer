@@ -5,7 +5,14 @@ const hbs = require("express-handlebars");
 const app = express();
 
 // Konfiguracja silnika HBS
-app.engine("hbs", hbs());
+app.engine(
+  "hbs",
+  hbs({
+    extname: "hbs",
+    layoutsDir: "./layouts",
+    defaultLayout: "main",
+  })
+);
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "/views"));
 
@@ -14,41 +21,41 @@ app.use(express.static(path.join(__dirname, "/public")));
 
 // Middleware blokujący dostęp do /user/*
 app.use("/user", (req, res) => {
-  res.render("forbidden", { layout: false });
+  res.render("forbidden");
 });
 
 // Endpointy
 app.get("/", (req, res) => {
-  res.render("index", { layout: false });
+  res.render("index");
 });
 
 app.get("/home", (req, res) => {
-  res.render("index", { layout: false });
+  res.render("index");
 });
 
 app.get("/hello/:name", (req, res) => {
-  res.render("hello", { layout: false, name: req.params.name });
+  res.render("hello", { name: req.params.name });
 });
 
 app.get("/about", (req, res) => {
-  res.render("about", { layout: false });
+  res.render("about");
 });
 
 app.get("/contact", (req, res) => {
-  res.render("contact", { layout: false });
+  res.render("contact");
 });
 
 app.get("/info", (req, res) => {
-  res.render("info", { layout: false });
+  res.render("info");
 });
 
 app.get("/history", (req, res) => {
-  res.render("history", { layout: false });
+  res.render("history");
 });
 
 // Obsługa 404
 app.use((req, res) => {
-  res.status(404).render("404", { layout: false });
+  res.status(404).render("404");
 });
 
 // Start serwera
