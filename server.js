@@ -9,7 +9,7 @@ app.engine(
   "hbs",
   hbs({
     extname: "hbs",
-    layoutsDir: "./layouts",
+    layoutsDir: path.join(__dirname, "views/layouts"),
     defaultLayout: "main",
   })
 );
@@ -56,6 +56,11 @@ app.get("/history", (req, res) => {
 // Obsługa 404
 app.use((req, res) => {
   res.status(404).render("404");
+});
+
+app.use((err, req, res, next) => {
+  console.error("Error:", err.stack);
+  res.status(500).send("Something broke!");
 });
 
 // Start serwera
