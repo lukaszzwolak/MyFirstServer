@@ -1,18 +1,20 @@
 {
+  "name": "my-first-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "repository": "https://github.com/lukaszzwolak/MyFirstServer.git",
+  "author": "lukaszzwolak <lukasz.zwolak1607@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
   "dependencies": {
     "express": "^5.1.0",
     "express-handlebars": "3.1.0",
     "hbs": "^4.2.0",
     "multer": "^2.0.1"
-  },
-  "name": "MyFirstServer",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/lukaszzwolak/MyFirstServer.git",
-  "author": "lukaszzwolak <lukasz.zwolak1607@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "start": "nodemon server.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
